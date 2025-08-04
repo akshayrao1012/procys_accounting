@@ -60,7 +60,7 @@ export default function OnboardingPage() {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">P</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">Procys Accounting</span>
+            <span className="text-xl font-bold text-gray-900">Procys</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Procys</h1>
           <p className="text-gray-600">Let's set up your account for compliant e-invoicing</p>

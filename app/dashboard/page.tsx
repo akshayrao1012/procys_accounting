@@ -502,7 +502,7 @@ export default function DashboardPage() {
                   <span className="text-white font-bold text-lg">P</span>
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">Procys Accounting</h1>
+                  <h1 className="text-xl font-bold text-gray-900">Procys</h1>
                   <p className="text-sm text-gray-600">VeriFactu Compliant Platform</p>
                 </div>
               </div>
