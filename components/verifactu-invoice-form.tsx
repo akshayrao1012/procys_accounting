@@ -123,7 +123,7 @@ export function VerifactuInvoiceForm({ invoiceData, onInvoiceCreated, verifactuE
   <Cabecera>
     <IDVersionSii>1.1</IDVersionSii>
     <Titular>
-      <NombreRazon>${data.companyName || "Procys"}</NombreRazon>
+      <NombreRazon>${data.companyName || "Acme Corporation GmbH"}</NombreRazon>
       <NIF>${data.companyVatId || "DE123456789"}</NIF>
     </Titular>
     <TipoComunicacion>A0</TipoComunicacion>

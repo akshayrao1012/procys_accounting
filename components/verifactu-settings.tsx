@@ -60,7 +60,7 @@ export function VerifactuSettings({ config, onConfigChange }: VerifactuSettingsP
 DECLARACIÓN DE RESPONSABILIDAD - VERIFACTU
 
 Por la presente, ${config.developerName} (NIF: ${config.developerTaxId}), 
-como desarrollador del software "Procys", 
+como desarrollador del software "Procys Accounting" versión ${config.softwareVersion}, 
 DECLARA BAJO SU RESPONSABILIDAD que:
 
 1. El software cumple con todos los requisitos técnicos establecidos en el 
