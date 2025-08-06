@@ -48,7 +48,8 @@ const mockClients = [
 const mockUsers = [
   {
     id: "1",
-    name: "John Doe",
+    firstName: "John",
+    lastName: "Doe",
     email: "john.doe@company.com",
     role: "Admin",
     status: "active",
@@ -57,7 +58,8 @@ const mockUsers = [
   },
   {
     id: "2",
-    name: "Jane Smith",
+    firstName: "Jane",
+    lastName: "Smith",
     email: "jane.smith@company.com",
     role: "User",
     status: "active",
@@ -148,7 +150,8 @@ export default function DashboardPage() {
   })
 
   const [userForm, setUserForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     role: "User",
   })
@@ -169,7 +172,7 @@ export default function DashboardPage() {
   }
 
   const resetUserForm = () => {
-    setUserForm({ name: "", email: "", role: "User" })
+    setUserForm({ firstName: "", lastName: "", email: "", role: "User" })
   }
 
   const handleSaveClient = async () => {
@@ -211,7 +214,7 @@ export default function DashboardPage() {
 
   const handleEditUser = (user: any) => {
     setEditingUser(user)
-    setUserForm({ name: user.name, email: user.email, role: user.role })
+    setUserForm({ firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role })
     setShowUserModal(true)
   }
 
@@ -435,39 +438,39 @@ export default function DashboardPage() {
                           <TableCell>
                             <div className="flex items-center space-x-3">
                               <Avatar>
-                                <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback>{`${user.firstName.substring(0, 1)}${user.lastName.substring(0, 1)}`.toUpperCase()}</AvatarFallback>
                               </Avatar>
-                              <div>
-                                <p className="font-medium">{user.name}</p>
+                            <div>
+                                <p className="font-medium">{user.firstName} {user.lastName}</p>
                                 <p className="text-sm text-gray-600">{user.email}</p>
-                              </div>
                             </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={user.role === "Admin" ? "default" : "secondary"}>{user.role}</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant={user.status === "active" ? "default" : "secondary"}>{user.status}</Badge>
-                          </TableCell>
-                          <TableCell>{new Date(user.lastLogin).toLocaleString()}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center space-x-1">
-                              <Button variant="ghost" size="icon" onClick={() => handleEditUser(user)}>
-                                <Edit className="w-4 h-4" />
-                              </Button>
-                              <Button variant="ghost" size="icon">
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={user.role === "Admin" ? "default" : "secondary"}>{user.role}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={user.status === "active" ? "default" : "secondary"}>{user.status}</Badge>
+                        </TableCell>
+                        <TableCell>{new Date(user.lastLogin).toLocaleString()}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-1">
+                            <Button variant="ghost" size="icon" onClick={() => handleEditUser(user)}>
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        )}
 
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -571,10 +574,27 @@ export default function DashboardPage() {
                 <DialogTitle>{editingUser ? "Edit User" : "Add New User"}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="userName">Full Name *</Label>
-                  <Input id="userName" value={userForm.name} onChange={(e) => setUserForm({ ...userForm, name: e.target.value })} />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First Name *</Label>
+                    <Input
+                      id="firstName"
+                      value={userForm.firstName}
+                      onChange={(e) => setUserForm({ ...userForm, firstName: e.target.value })}
+                      placeholder="John"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last Name *</Label>
+                    <Input
+                      id="lastName"
+                      value={userForm.lastName}
+                      onChange={(e) => setUserForm({ ...userForm, lastName: e.target.value })}
+                      placeholder="Doe"
+                    />
+                  </div>
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="userEmail">Email *</Label>
                   <Input id="userEmail" type="email" value={userForm.email} onChange={(e) => setUserForm({ ...userForm, email: e.target.value })} />
