@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Shield, CheckCircle, AlertTriangle, Clock, Hash, FileText, Send, Eye, Download, QrCode } from "lucide-react"
+import { Shield, CheckCircle, AlertTriangle, Clock, Hash, FileText, Send, Eye, Download, QrCode } from 'lucide-react'
 import { QRCodePopup } from "./qr-code-popup"
 import { VeriFactuPDFGenerator } from "@/lib/pdf-generator"
 
@@ -123,7 +123,7 @@ export function VerifactuInvoiceForm({ invoiceData, onInvoiceCreated, verifactuE
   <Cabecera>
     <IDVersionSii>1.1</IDVersionSii>
     <Titular>
-      <NombreRazon>${data.companyName || "Acme Corporation GmbH"}</NombreRazon>
+      <NombreRazon>${data.companyName || "Procys"}</NombreRazon>
       <NIF>${data.companyVatId || "DE123456789"}</NIF>
     </Titular>
     <TipoComunicacion>A0</TipoComunicacion>

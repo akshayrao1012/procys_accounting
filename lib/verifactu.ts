@@ -110,7 +110,7 @@ class VerifactuService {
         <IDType>02</IDType>
         <ID>${this.config.softwareVersion}</ID>
       </IDOtro>
-      <NombreSistemaInformatico>Procys Accounting</NombreSistemaInformatico>
+      <NombreSistemaInformatico>Procys</NombreSistemaInformatico>
       <IdSistemaInformatico>PROCYS-${this.config.softwareVersion}</IdSistemaInformatico>
       <Version>${this.config.softwareVersion}</Version>
       <NumeroInstalacion>1</NumeroInstalacion>

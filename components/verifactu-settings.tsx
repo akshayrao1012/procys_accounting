@@ -18,18 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Shield,
-  FileText,
-  CheckCircle,
-  AlertTriangle,
-  Download,
-  Upload,
-  Key,
-  Clock,
-  Database,
-  Info,
-} from "lucide-react"
+import { Shield, FileText, CheckCircle, AlertTriangle, Download, Upload, Key, Clock, Database, Info } from 'lucide-react'
 
 interface VerifactuSettingsProps {
   config: {
@@ -71,7 +60,7 @@ export function VerifactuSettings({ config, onConfigChange }: VerifactuSettingsP
 DECLARACIÓN DE RESPONSABILIDAD - VERIFACTU
 
 Por la presente, ${config.developerName} (NIF: ${config.developerTaxId}), 
-como desarrollador del software "Procys Accounting" versión ${config.softwareVersion}, 
+como desarrollador del software "Procys", 
 DECLARA BAJO SU RESPONSABILIDAD que:
 
 1. El software cumple con todos los requisitos técnicos establecidos en el 

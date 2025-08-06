@@ -340,7 +340,7 @@ class VeriFactuCore {
         <DeclaracionSoftware>
           <NIFDesarrollador>${this.config.softwareDeclaration.vendorNIF}</NIFDesarrollador>
           <NombreDesarrollador>${this.config.softwareDeclaration.vendorName}</NombreDesarrollador>
-          <NombreSoftware>${this.config.softwareDeclaration.softwareName}</NombreSoftware>
+          <NombreSoftware>Procys</NombreSoftware>
           <VersionSoftware>${this.config.softwareDeclaration.softwareVersion}</VersionSoftware>
           <NumeroCertificacion>${this.config.softwareDeclaration.certificationNumber}</NumeroCertificacion>
           <FechaDeclaracion>${this.config.softwareDeclaration.declarationDate}</FechaDeclaracion>
