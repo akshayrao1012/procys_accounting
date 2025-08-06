@@ -8,56 +8,31 @@ import Link from "next/link"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">P</span>
-              </div>
-              <h1 className="text-2xl font-bold text-blue-600">PROCYS</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button asChild variant="ghost">
-                <Link href="/login">Log In</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/dashboard">
-                  Get Started
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
-            </div>
+    <div className="flex flex-col min-h-screen items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white p-4">
+      <div className="text-center space-y-6">
+        <div className="flex items-center justify-center space-x-4">
+          <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-blue-600 font-bold text-4xl">P</span>
           </div>
+          <h1 className="text-5xl font-extrabold tracking-tight">PROCYS</h1>
         </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="container mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-          Simple, Fast, and Powerful Invoicing
-        </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          Procys helps you create professional invoices in seconds. Spend less time on paperwork and more time growing
-          your business.
+        <p className="text-xl max-w-2xl mx-auto opacity-90">
+          Simplify your invoicing and accounting with our intuitive platform. Manage clients, create invoices, and track payments effortlessly.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" asChild>
-            <Link href="/dashboard">
-              <Zap className="w-5 h-5 mr-2" />
-              Create Your First Invoice
+        <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+          <Button asChild className="bg-white text-blue-600 hover:bg-gray-100 hover:text-blue-700 text-lg px-8 py-6 rounded-lg shadow-lg transition-all duration-300">
+            <Link href="/onboarding">
+              Get Started Free
+              <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/features">
-              <Eye className="w-5 h-5 mr-2" />
-              Explore Features
+          <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6 rounded-lg shadow-lg transition-all duration-300">
+            <Link href="/dashboard">
+              Go to Dashboard
             </Link>
           </Button>
         </div>
-      </section>
+      </div>
 
       {/* Features Section */}
       <section className="bg-white py-20">
@@ -103,22 +78,6 @@ export default function HomePage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-blue-600 py-16">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to simplify your invoicing?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Start for free. No credit card required.
-          </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/dashboard">
-              Sign Up Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-          </Button>
         </div>
       </section>
 

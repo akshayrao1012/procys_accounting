@@ -27,18 +27,24 @@ export interface AuditLogEntry {
   hash: string
 }
 
-export interface VerifactuConfig {
+export type VerifactuConfig = {
   enabled: boolean
   aeatSubmissionEnabled: boolean
   developerTaxId: string
   developerName: string
   softwareVersion: string
-  certificateNumber?: string
+  certificateNumber: string
   complianceDeclaration: {
     date: string
     version: string
     responsible: string
   }
+}
+
+export function validateVerifactuData(data: any): boolean {
+  // Placeholder for actual validation logic
+  console.log("Validating VeriFactu data:", data)
+  return true
 }
 
 class VerifactuService {

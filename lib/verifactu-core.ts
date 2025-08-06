@@ -1,5 +1,6 @@
 import crypto from "crypto"
 import { fetch } from "node-fetch" // Ensure fetch is imported
+import { XMLBuilder } from "fast-xml-parser"
 
 // VeriFactu Core Service - Complete Spanish Tax Authority Compliance
 export interface VeriFactuInvoice {
@@ -138,6 +139,133 @@ export interface UserRole {
     canManageUsers: boolean
     canConfigureSystem: boolean
   }
+}
+
+interface InvoiceItem {
+  description: string
+  quantity: number
+  unitPrice: number
+  taxRate: number
+}
+
+interface FacturaEInvoiceData {
+  invoiceNumber: string
+  invoiceDate: string
+  dueDate: string
+  client: {
+    name: string
+    nif: string
+    address: string
+    city: string
+    postalCode: string
+    country: string
+  }
+  items: InvoiceItem[]
+  totalAmount: number
+  company: {
+    name: string
+    vatId: string
+    address: string
+    city: string
+    postalCode: string
+    country: string
+  }
+}
+
+interface ComplianceSettings {
+  developerTaxId: string
+  developerName: string
+  softwareVersion: string
+  certificateNumber: string
+}
+
+/**
+ * Simulates the generation of a VeriFactu compliant invoice.
+ * In a real scenario, this would involve cryptographic signing and secure storage.
+ */
+export async function generateVerifactuInvoice({
+  invoiceData,
+  complianceSettings,
+}: {
+  invoiceData: InvoiceData
+  complianceSettings: ComplianceSettings
+}) {
+  // 1. Prepare data for hashing (simplified)
+  const dataToHash = JSON.stringify({
+    invoiceNumber: invoiceData.invoiceNumber,
+    invoiceDate: invoiceData.invoiceDate,
+    clientNIF: invoiceData.client.nif,
+    totalAmount: invoiceData.totalAmount,
+    items: invoiceData.items.map((item) => ({
+      desc: item.description,
+      qty: item.quantity,
+      price: item.unitPrice,
+      tax: item.taxRate,
+    })),
+    developerTaxId: complianceSettings.developerTaxId,
+    softwareVersion: complianceSettings.softwareVersion,
+  })
+
+  // 2. Generate cryptographic hash
+  const verifactuHash = await generateSha256Hash(dataToHash)
+
+  // 3. Generate QR code data
+  const verifactuQR = generateQrCodeData(invoiceData, verifactuHash)
+
+  // 4. Simulate AEAT submission (if enabled)
+  if (true) {
+    // This would involve a complex SOAP/REST call to AEAT with digital signature
+    console.log("Simulating AEAT submission for invoice:", invoiceData.invoiceNumber)
+    // In a real app, you'd get a submission ID and status from AEAT
+    await new Promise((resolve) => setTimeout(resolve, 500)) // Simulate network delay
+    console.log("AEAT submission simulated successfully.")
+  }
+
+  return {
+    verifactuHash,
+    verifactuQR,
+    aeatSubmissionId: "MOCK-AEAT-SUBMISSION-ID-123", // Mock ID
+    immutableTimestamp: new Date().toISOString(),
+  }
+}
+
+// Mock data for company details (replace with actual dynamic data)
+const companyDetails = {
+  name: "Your Company Name S.L.",
+  vatId: "ES12345678Z",
+  address: "Calle Falsa 123",
+  city: "Madrid",
+  postalCode: "28001",
+  country: "ES",
+}
+
+// Mock AEAT certificate and key (in a real app, these would be securely loaded)
+const mockCertificate = `-----BEGIN CERTIFICATE-----
+... your AEAT certificate content ...
+-----END CERTIFICATE-----`
+
+const mockPrivateKey = `-----BEGIN PRIVATE KEY-----
+... your AEAT private key content ...
+-----END PRIVATE KEY-----`
+
+// Helper to generate a simple SHA256 hash (for demonstration)
+async function generateSha256Hash(data: string): Promise<string> {
+  const textEncoder = new TextEncoder()
+  const dataBuffer = textEncoder.encode(data)
+  const hashBuffer = await crypto.subtle.digest("SHA-256", dataBuffer)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hexHash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("")
+  return `sha256:${hexHash}`
+}
+
+// Helper to simulate QR code data generation
+function generateQrCodeData(invoiceData: any, hash: string): string {
+  // This is a simplified representation. Real QR codes for VeriFactu are complex.
+  // Format: NIF_Emisor|Num_Factura|Fecha_Expedicion|Importe_Total|URL_Verificacion|HASH
+  const issuerNIF = companyDetails.vatId
+  const totalAmount = invoiceData.totalAmount.toFixed(2)
+  const verificationUrl = "https://your-company.com/verify-invoice" // Placeholder
+  return `QR:${issuerNIF}|${invoiceData.invoiceNumber}|${invoiceData.invoiceDate}|${totalAmount}|${verificationUrl}|${hash}`
 }
 
 class VeriFactuCore {
@@ -842,3 +970,59 @@ class VeriFactuCore {
 }
 
 export { VeriFactuCore }
+
+/**
+ * Generates a simplified FacturaE XML structure.
+ * This is a highly simplified version for demonstration purposes.
+ * A real FacturaE would require extensive details and adherence to CEN/EN 16931.
+ */
+export async function generateFacturaEXML(invoiceData: FacturaEInvoiceData): Promise<string> {
+  const options = {
+    ignoreAttributes: false,
+    attributeNamePrefix: "@_",
+  }
+  const builder = new XMLBuilder(options)
+
+  const xmlObject = {
+    "fe:FacturaE": {
+      "@_xmlns:fe": "http://www.facturae.gob.es/formato/Versiones/Facturae_3_2_2.xsd",
+      "fe:Cabecera": {
+        "fe:Version": "3.2.2",
+        "fe:IDFactura": invoiceData.invoiceNumber,
+        "fe:FechaExpedicion": invoiceData.invoiceDate,
+      },
+      "fe:Emisor": {
+        "fe:NIF": invoiceData.company.vatId,
+        "fe:RazonSocial": invoiceData.company.name,
+        "fe:Direccion": invoiceData.company.address,
+        "fe:Municipio": invoiceData.company.city,
+        "fe:CodigoPostal": invoiceData.company.postalCode,
+        "fe:Pais": invoiceData.company.country,
+      },
+      "fe:Receptor": {
+        "fe:NIF": invoiceData.client.nif,
+        "fe:RazonSocial": invoiceData.client.name,
+        "fe:Direccion": invoiceData.client.address,
+        "fe:Municipio": invoiceData.client.city,
+        "fe:CodigoPostal": invoiceData.client.postalCode,
+        "fe:Pais": invoiceData.client.country,
+      },
+      "fe:LineasFactura": {
+        "fe:LineaFactura": invoiceData.items.map((item, index) => ({
+          "@_ID": index + 1,
+          "fe:Descripcion": item.description,
+          "fe:Cantidad": item.quantity,
+          "fe:PrecioUnitario": item.unitPrice.toFixed(2),
+          "fe:ImporteTotal": (item.quantity * item.unitPrice).toFixed(2),
+          "fe:TipoIVA": item.taxRate.toFixed(2),
+        })),
+      },
+      "fe:Totales": {
+        "fe:ImporteTotal": invoiceData.totalAmount.toFixed(2),
+      },
+    },
+  }
+
+  const xmlContent = builder.build(xmlObject)
+  return `<?xml version="1.0" encoding="UTF-8"?>\n${xmlContent}`
+}

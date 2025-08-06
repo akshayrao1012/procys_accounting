@@ -250,10 +250,9 @@ export default function DashboardPage() {
 
       <div className="p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className={`grid w-full ${isAdmin ? "grid-cols-4" : "grid-cols-3"}`}>
+          <TabsList className={`grid w-full ${isAdmin ? "grid-cols-3" : "grid-cols-2"}`}>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="clients">Clients</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             {isAdmin && <TabsTrigger value="users">Users</TabsTrigger>}
           </TabsList>
 
@@ -472,57 +471,7 @@ export default function DashboardPage() {
             </TabsContent>
           )}
 
-          <TabsContent value="analytics" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Monthly Revenue</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">€18,450</p>
-                  <p className="text-xs text-green-600">+15.3% vs last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Avg. Invoice Value</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">€802.17</p>
-                  <p className="text-xs text-red-600">-5.1% vs last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Avg. Collection Time</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">28 days</p>
-                  <p className="text-xs text-green-600">2 days faster</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Top Client</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-lg font-bold">Acme Corp S.L.</p>
-                  <p className="text-xs text-muted-foreground">€29,400 total</p>
-                </CardContent>
-              </Card>
-            </div>
-            <Card>
-              <CardHeader>
-                <CardTitle>More Analytics</CardTitle>
-                <CardDescription>Detailed performance metrics will be displayed here.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64 flex items-center justify-center text-gray-500 border-2 border-dashed rounded-lg">
-                  <p>Advanced charts coming soon.</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+          {/* Removed Analytics Tab Content */}
         </Tabs>
 
         <Dialog open={showClientModal} onOpenChange={setShowClientModal}>
